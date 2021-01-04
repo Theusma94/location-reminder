@@ -142,8 +142,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
             getCurrentlocation()
         }
         else {
-            ActivityCompat.requestPermissions(
-                    requireActivity(),
+            requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     REQUEST_LOCATION_PERMISSION
             )
