@@ -1,5 +1,6 @@
 package com.udacity.project4.locationreminders.savereminder
 
+import android.app.Application
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
@@ -34,6 +35,7 @@ class SaveReminderViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var saveReminderViewModel: SaveReminderViewModel
+    private lateinit var context: Application
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -43,6 +45,7 @@ class SaveReminderViewModelTest {
 
     @Before
     fun setupSaveReminderViewModel() {
+        context = ApplicationProvider.getApplicationContext()
         saveReminderViewModel = SaveReminderViewModel(
                 ApplicationProvider.getApplicationContext(),
                 fakeDataSource
