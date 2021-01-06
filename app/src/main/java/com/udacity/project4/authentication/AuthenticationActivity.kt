@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -41,9 +42,10 @@ class AuthenticationActivity : AppCompatActivity() {
         // Create and launch sign-in intent. We listen to the response of this activity with the
         // SIGN_IN_RESULT_CODE code.
         startActivityForResult(
-                AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
-                        providers
-                ).build(), SIGN_IN_RESULT_CODE
+                AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
+                        .setLogo(R.drawable.map)
+                        .setTheme(R.style.AppTheme_AuthTheme)
+                        .build(), SIGN_IN_RESULT_CODE
         )
     }
 
@@ -53,12 +55,12 @@ class AuthenticationActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in user.
+                Log.i(
+                    TAG,
+                    "Successfully signed in user " +
+                            "${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                )
                 startActivity(Intent(this, RemindersActivity::class.java))
-//                Log.i(
-//                    TAG,
-//                    "Successfully signed in user " +
-//                            "${FirebaseAuth.getInstance().currentUser?.displayName}!"
-//                )
             } else {
                 // Sign in failed. If response is null the user canceled the sign-in flow using
                 // the back button. Otherwise check response.getError().getErrorCode() and handle
